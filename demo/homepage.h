@@ -6,6 +6,7 @@
 #include <QPainter>
 #include "canvas.h"
 #include "console.h"
+#include "login.h"
 
 #define WINDOW_HIGHT 720
 #define WINDOW_WIDTH 1280
@@ -19,6 +20,7 @@ public:
 private:
     Canvas *canvas;
     Console *console;
+    Login *login;
 
 signals:
 

@@ -25,7 +25,8 @@ public slots:
 
 signals:
     void newLineWriten(QStringList);
-    void drawLine(qreal, qreal);
+    void drawLine(qreal, bool);
+    void turnDirection(qreal, bool);
     void penDownUp(bool);
     void setXT(qreal, qreal);
     void setPC(uint);

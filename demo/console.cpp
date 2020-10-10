@@ -54,13 +54,15 @@ Console::keyPressEvent(QKeyEvent *ev)
 
         QString INST = args.at(0);
         if (INST == "fd")
-            emit drawLine(90, args.at(1).toDouble(nullptr));
+            emit drawLine(args.at(1).toDouble(nullptr), true);
         else if (INST == "bk")
-            emit drawLine(270, args.at(1).toDouble(nullptr));
+            emit drawLine(args.at(1).toDouble(nullptr), false);
         else if (INST == "rt")
-            emit drawLine(0, args.at(1).toDouble(nullptr));
+//            emit drawLine(0, args.at(1).toDouble(nullptr));
+            emit turnDirection(args.at(1).toDouble(nullptr), true);
         else if (INST == "lt")
-            emit drawLine(180, args.at(1).toDouble(nullptr));
+//            emit drawLine(180, args.at(1).toDouble(nullptr));
+            emit turnDirection(args.at(1).toDouble(nullptr), false);
 
         else if (INST == "pd")
             emit penDownUp(true);

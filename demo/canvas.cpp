@@ -8,9 +8,21 @@ Canvas::Canvas(QWidget *parent) : QWidget(parent)
     CANVAS_WIDTH = (parent->width() * 3) / 4;
     CANVAS_HEIGHT = (parent->height() * 3) / 4;
     CURR_POS = new QPointF(CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+    CURR_ANGLE = 90;
     PEN_IS_DOWN = true;
 }
 
+// public
+void
+Canvas::addAngle(qreal delta)
+{
+    CURR_ANGLE += delta;
+
+    if (CURR_ANGLE >= 360)
+        CURR_ANGLE -= 360;
+    else if (CURR_ANGLE < 0)
+        CURR_ANGLE += 360;
+}
 
 void
 Canvas::paintEvent(QPaintEvent *)
@@ -69,13 +81,16 @@ Canvas::mouseReleaseEvent(QMouseEvent *ev)
 
 // SLOT
 void
-Canvas::drawLine(qreal angle, qreal rlen)
+Canvas::drawLine(qreal rlen, bool flag)
 {
     const QPointF aP1(CURR_POS->rx(), CURR_POS->ry());
 
     QLineF line;
     line.setP1(aP1);
-    line.setAngle(angle);
+    if (flag == false)
+        addAngle(180);
+
+    line.setAngle(CURR_ANGLE);
     line.setLength(rlen);
 
     if (PEN_IS_DOWN)
@@ -86,7 +101,14 @@ Canvas::drawLine(qreal angle, qreal rlen)
     update();
 }
 
-
+void
+Canvas::turnDirection(qreal delta, bool flag)
+{
+    if (flag)
+        addAngle(delta * (-1));
+    else
+        addAngle(delta);
+}
 
 void
 Canvas::reset()
@@ -117,6 +139,7 @@ void
 Canvas::setPC(uint color)
 {
     pen.setColor(color);
+    update();
 }
 
 

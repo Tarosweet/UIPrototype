@@ -28,6 +28,7 @@ public:
 private:
     int CANVAS_WIDTH, CANVAS_HEIGHT;
     QPointF *CURR_POS;
+    qreal CURR_ANGLE;
 
     bool PEN_IS_DOWN;
     QPen pen;
@@ -35,10 +36,14 @@ private:
     QVector<QVector<QPointF>> _lines;
     QVector<QLineF> LINES;
 
+public:
+    void addAngle(qreal);
+
 signals:
 
 public slots:
-    void drawLine(qreal, qreal);
+    void drawLine(qreal, bool);
+    void turnDirection(qreal, bool);
     void reset();
     void penDownUp(bool);
     void setXT(qreal, qreal);
